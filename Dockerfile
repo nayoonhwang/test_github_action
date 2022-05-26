@@ -1,0 +1,6 @@
+FROM ubuntu:latest
+
+ARG VERSION
+ENV DD_VERSION=$VERSION
+
+CMD echo $DD_VERSION

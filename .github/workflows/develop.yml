@@ -1,0 +1,25 @@
+name: Deploy DEV
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: 'Get Previous tag'
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+        with:
+          fallback: 1.0.0
+      - name: Build and deploy
+        run: |
+          echo $GITHUB_REF_NAME
+          echo $GITHUB_REF
+          docker build --build-arg VERSION=${{ steps.previoustag.outputs.tag }} -t test .
+          echo "$(docker run test)"
+        
