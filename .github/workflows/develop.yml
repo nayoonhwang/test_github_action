@@ -22,4 +22,3 @@ jobs:
           echo $GITHUB_REF
           docker build --build-arg VERSION=${{ steps.previoustag.outputs.tag }} -t test .
           echo "$(docker run test)"
-        
